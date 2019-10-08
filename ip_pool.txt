@@ -1,1 +1,1 @@
-10.0.0.1,192.168.0.1,yahoo.com,outlook.com,tinder.com,192.168.0.11,192.168.0.100,192.168.0.10,192.168.0.9,192.168.0.20,google.com,facebook.com,instagram.com
+10.0.0.1,192.168.0.1,yahoo.com,10.330.10.1,outlook.com,tinder.com,192.168.0.11,192.168.0.100,192.168.0.10,192.168.0.9,192.168.0.20,google.com,facebook.com,instagram.com,10.0.0.10,10.0.0.13,gooaekafdfkas.com
