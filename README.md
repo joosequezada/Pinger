@@ -1,2 +1,2 @@
 # Pinger
-python3 Script - Pinger gets ICMP Ping Status, if it's DNS, IP or Unknown value took from file.
+Python3 Script to check Status, ICMP Ping, DNS/IP for Host in Pool List file.
