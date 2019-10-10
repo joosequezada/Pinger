@@ -3,8 +3,8 @@
 """
 Python3 Script to check Status, PING ICMP, DNS/IP for IP Pool List.
 """
+import sys
 import subprocess
-import csv
 import socket
 import ipaddress
 
@@ -17,12 +17,20 @@ def ip_pinger(ip):
 	'''
 	This function return True if Ping ICMP is Successful. 
 	'''
-	ping_getstatus = subprocess.run(["ping", "-c1", "-w1", ip], stdout=subprocess.PIPE)
-	success = ping_getstatus.returncode
-	if (success == 0):
-	    return "UP"
-	else:
-	    return "DOWN"
+	if sys.platform == "win32":
+		ping_getstatus = subprocess.run("ping -n 1 -w 1 {}".format(ip), stdout=subprocess.PIPE)
+		success = ping_getstatus.returncode
+		if (success == 0):
+				return "UP"
+		else:
+			return "DOWN"
+	elif sys.platform == 'linux':
+		ping_getstatus = subprocess.run(["ping", "-c1", "-w1", ip], stdout=subprocess.PIPE)
+		success = ping_getstatus.returncode
+		if (success == 0):
+			return "UP"
+		else:
+			return "DOWN"
 
 
 def check_ip_dns(ip):
@@ -63,14 +71,9 @@ def main():
 	This function open a file and get all the IP in it
 	to test and get some info. 
 	'''
-	with open("ip_pool.txt", "r") as csv_file:
-		rfile	=	csv.reader(csv_file, delimiter=',')
-		for ip_pool in rfile:
-			for ip in ip_pool:
-				print("<IP:> {} <Status:> {} <IP/DNS:> {}".format(
-								ip, ip_pinger(ip), check_ip_dns(ip)))
-	csv_file.close()
-
+	with open("ip_pool.txt", "r") as fp:
+		for ip_pool in fp.read().strip().split(","):
+			print("<IP:> {} <Status:> {} <IP/DNS:> {}".format(ip, ip_pinger(ip), check_ip_dns(ip)))
 
 if __name__ == "__main__":
 	main()
